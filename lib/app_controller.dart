@@ -3,6 +3,7 @@ import 'package:modulo_d1_pr/pages/cadastro_curso_page.dart';
 import 'package:modulo_d1_pr/pages/cadastro_professor_page.dart';
 import 'package:modulo_d1_pr/pages/home_page.dart';
 import 'package:modulo_d1_pr/pages/professores_page.dart';
+import 'package:modulo_d1_pr/pages/relatorios_page.dart';
 
 class AppController extends StatelessWidget {
   const AppController({super.key});
@@ -17,6 +18,7 @@ class AppController extends StatelessWidget {
         '/cadastroCurso': (context) => CadastroCursoPage(),
         '/professores': (context) => ProfessoresPage(),
         '/cadastroProfessor': (context) => CadastroProfessorPage(),
+        '/relatorios': (context) => RelatoriosPage(),
       },
     );
   }

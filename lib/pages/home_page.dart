@@ -350,7 +350,11 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(
+                    context,
+                  ).pushReplacementNamed('/relatorios');
+                },
                 child: Image.asset(
                   height: 40,
                   'assets/images/relatorios.png',
