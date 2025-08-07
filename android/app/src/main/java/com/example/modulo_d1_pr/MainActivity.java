@@ -4,18 +4,30 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.util.Base64InputStream;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import io.flutter.embedding.android.FlutterActivity;
 import io.flutter.embedding.engine.FlutterEngine;
 import io.flutter.plugin.common.EventChannel;
+import io.flutter.plugin.common.MethodCall;
+import io.flutter.plugin.common.MethodChannel;
 
 public class MainActivity extends FlutterActivity {
 
     String caminhoCanal = "com.example.modulo_d1_pr";
     private BroadcastReceiver broadInternet;
+    private MethodChannel.Result resultados;
 
     @Override
     protected void onDestroy() {
@@ -26,6 +38,28 @@ public class MainActivity extends FlutterActivity {
     @Override
     public void configureFlutterEngine(@NonNull FlutterEngine flutterEngine) {
         super.configureFlutterEngine(flutterEngine);
+
+        new MethodChannel(flutterEngine.getDartExecutor(), caminhoCanal + "/main").setMethodCallHandler(new MethodChannel.MethodCallHandler() {
+            @Override
+            public void onMethodCall(@NonNull MethodCall call, @NonNull MethodChannel.Result result) {
+
+                resultados = result;
+
+                switch (call.method) {
+
+                    case "imagem":
+
+                        Intent intent = new Intent(MediaStore.ACTION_PICK_IMAGES);
+                        intent.setType("image/*");
+                        startActivityForResult(intent, 1000);
+                        break;
+
+                }
+
+            }
+        });
+
+
 
         new EventChannel(flutterEngine.getDartExecutor(), caminhoCanal + "/internet").setStreamHandler(new EventChannel.StreamHandler() {
             @Override
@@ -48,6 +82,17 @@ public class MainActivity extends FlutterActivity {
 
             }
         });
+
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        super.startActivityForResult(intent, requestCode);
+
+        if (intent != null && requestCode == 1000) {
+
+
+        }
 
     }
 

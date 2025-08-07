@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:modulo_d1_pr/global/colors.dart';
+import 'package:modulo_d1_pr/global/variaveis.dart';
 
 class CadastroProfessorPage extends StatefulWidget {
   const CadastroProfessorPage({super.key});
@@ -11,6 +15,18 @@ class CadastroProfessorPage extends StatefulWidget {
 
 class _CadastroProfessorPageState
     extends State<CadastroProfessorPage> {
+  Uint8List? bytesImage;
+  MethodChannel methodChannel = MethodChannel('$caminhoCanal/main');
+
+  void selecionarImagem() async {
+    String img64 = await methodChannel.invokeMethod('imagem');
+    if (img64.isNotEmpty) {
+      setState(() {
+        bytesImage = base64Decode(img64);
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +69,7 @@ class _CadastroProfessorPageState
                 spacing: 10,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Nome'),
+                  Text('E-mail'),
                   Container(
                     decoration: BoxDecoration(color: corClara),
                     child: TextField(
@@ -68,7 +84,7 @@ class _CadastroProfessorPageState
                 spacing: 10,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Nome'),
+                  Text('Telefone'),
                   Container(
                     decoration: BoxDecoration(color: corClara),
                     child: TextField(
@@ -83,15 +99,72 @@ class _CadastroProfessorPageState
                 spacing: 10,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Nome'),
+                  Text('Descrição'),
                   Container(
                     decoration: BoxDecoration(color: corClara),
                     child: TextField(
-                      maxLines: 5,
+                      maxLines: 3,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                       ),
                     ),
+                  ),
+                ],
+              ),
+              Column(
+                spacing: 10,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Imagem'),
+                  Center(
+                    child: GestureDetector(
+                      onTap: () {
+                        selecionarImagem();
+                      },
+                      child: Container(
+                        width: 300,
+                        height: 150,
+                        decoration: BoxDecoration(
+                          color: corClara,
+                          border: Border.all(
+                            width: 1,
+                            color: corEscuro,
+                          ),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: bytesImage != null
+                            ? InteractiveViewer(
+                                child: Image.memory(
+                                  bytesImage!,
+                                  fit: BoxFit.cover,
+                                ),
+                              )
+                            : Container(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: corRoxoMedio,
+                      foregroundColor: corClara,
+                    ),
+                    child: Text('Salvar'),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pushReplacementNamed('/');
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: corRoxoMedio,
+                      foregroundColor: corClara,
+                    ),
+                    child: Icon(Icons.close),
                   ),
                 ],
               ),
