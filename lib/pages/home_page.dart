@@ -316,7 +316,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('/cadastroCurso');
+        },
         style: IconButton.styleFrom(
           backgroundColor: corRoxoMedio,
           foregroundColor: corClara,
@@ -336,7 +338,11 @@ class _HomePageState extends State<HomePage> {
                 fit: BoxFit.cover,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () {
+                  Navigator.of(
+                    context,
+                  ).pushReplacementNamed('/professores');
+                },
                 child: Image.asset(
                   height: 40,
                   'assets/images/profs.png',
