@@ -22,6 +22,11 @@ class _HomePageState extends State<HomePage> {
   }
 
   void iniciar() async {
+    eventInternet.receiveBroadcastStream().listen((value) {
+      setState(() {
+        conexaoInternet = (value == 1);
+      });
+    });
     jsonList = await rootBundle.loadString('assets/jsons/dados.json');
     listCursos = jsonDecode(jsonList)['cursos'];
     setState(() {});
@@ -105,6 +110,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+
       body: SafeArea(
         child: Padding(
           padding: EdgeInsetsGeometry.all(20),
@@ -124,6 +130,25 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
+              conexaoInternet
+                  ? Container()
+                  : Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(color: Colors.red),
+                      child: Padding(
+                        padding: EdgeInsetsGeometry.all(10),
+                        child: Text(
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          'Sem conexão com internet, os dados podem não estar totalmentes atualizados.',
+                          style: TextStyle(
+                            color: corClara,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ),
+                    ),
               Container(height: 10),
               listCursos.isEmpty
                   ? Container()
