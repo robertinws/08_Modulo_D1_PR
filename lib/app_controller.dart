@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:modulo_d1_pr/home_page.dart';
+import 'package:modulo_d1_pr/pages/home_page.dart';
 
 class AppController extends StatelessWidget {
   const AppController({super.key});
