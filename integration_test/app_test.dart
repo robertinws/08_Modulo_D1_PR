@@ -87,7 +87,7 @@ void main() {
     tester.printToConsole('Botão grid clicado');
     await tester.pump(Duration(seconds: 1));
 
-    await tester.longPress(find.text('Lóg'));
+    await tester.longPress(find.text('Lógica'));
     await tester.pump(Duration(seconds: 1));
     await tester.pump(Duration(seconds: 1));
 
@@ -108,7 +108,7 @@ void main() {
     tester.printToConsole('Botão list clicado');
     await tester.pump(Duration(seconds: 1));
 
-    await tester.tap(find.text('Lóg'));
+    await tester.tap(find.text('Lógica'));
     await tester.pump(Duration(seconds: 1));
     await tester.pump(Duration(seconds: 1));
 

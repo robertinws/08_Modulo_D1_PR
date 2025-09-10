@@ -1,5 +1,9 @@
 import 'package:_08_modulo_d1_pr/global/variaveis.dart';
+import 'package:_08_modulo_d1_pr/pages/cadastro_curso_page.dart';
+import 'package:_08_modulo_d1_pr/pages/cadastro_prof_page.dart';
 import 'package:_08_modulo_d1_pr/pages/home_page.dart';
+import 'package:_08_modulo_d1_pr/pages/profs_page.dart';
+import 'package:_08_modulo_d1_pr/pages/relatorios_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,7 +25,13 @@ class AppController extends StatelessWidget {
             ),
           ),
           initialRoute: '/',
-          routes: {'/': (context) => HomePage()},
+          routes: {
+            '/': (context) => HomePage(),
+            '/cadastroCurso': (context) => CadastroCursoPage(),
+            '/profs': (context) => ProfsPage(),
+            '/cadastroProf': (context) => CadastroProfPage(),
+            '/relatorios': (context) => RelatoriosPage(),
+          },
         );
       },
     );

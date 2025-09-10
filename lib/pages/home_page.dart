@@ -55,6 +55,7 @@ class _HomePageState extends State<HomePage> {
             )
             .toList();
         if (listFiltrada.isEmpty) {
+          setState(() {});
           Fluttertoast.showToast(msg: 'Nenhum curso encontrado');
         } else {
           setState(() {});
