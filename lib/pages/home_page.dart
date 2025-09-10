@@ -53,8 +53,26 @@ class _HomePageState extends State<HomePage> {
         elevation: 0,
         scrolledUnderElevation: 0,
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.grid_view)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.list)),
+          IconButton(
+            onPressed: listagemGrid
+                ? null
+                : () {
+                    setState(() {
+                      listagemGrid = true;
+                    });
+                  },
+            icon: Icon(Icons.grid_view),
+          ),
+          IconButton(
+            onPressed: !listagemGrid
+                ? null
+                : () {
+                    setState(() {
+                      listagemGrid = false;
+                    });
+                  },
+            icon: Icon(Icons.list),
+          ),
         ],
       ),
       body: SafeArea(
