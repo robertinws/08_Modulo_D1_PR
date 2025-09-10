@@ -1,5 +1,7 @@
 import 'package:_08_modulo_d1_pr/global/colors.dart';
+import 'package:_08_modulo_d1_pr/global/variaveis.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CadastroCursoPage extends StatefulWidget {
   const CadastroCursoPage({super.key});
@@ -18,6 +20,13 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
       sumarioController = TextEditingController();
   String dataInicio = '', dataFim = '';
   int? categoria, formato = 0;
+  List<String> listFormatos = [
+    'Atividade Única',
+    'Formato Social',
+    'Formato tópicos',
+    'Formato semanal',
+  ];
+  List<dynamic> listProfsAdd = [];
 
   void salvarCurso() async {}
 
@@ -93,15 +102,21 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                             ),
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton(
+                                dropdownColor: corClara,
                                 isExpanded: true,
                                 value: categoria,
                                 hint: Text('Selecione uma categoria'),
-                                items: List.generate(4, (index) {
-                                  return DropdownMenuItem(
-                                    value: index,
-                                    child: Text('Item'),
-                                  );
-                                }),
+                                items: List.generate(
+                                  listCategorias.length,
+                                  (index) {
+                                    final cate =
+                                        listCategorias[index];
+                                    return DropdownMenuItem(
+                                      value: index,
+                                      child: Text(cate['nome']),
+                                    );
+                                  },
+                                ),
                                 onChanged: (newValue) {
                                   setState(() {
                                     categoria = newValue;
@@ -138,6 +153,20 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                         children: [
                           Text('Data Início'),
                           TextField(
+                            onTap: () async {
+                              final data = await showDatePicker(
+                                context: context,
+                                firstDate: DateTime(2025),
+                                lastDate: DateTime(2050),
+                              );
+                              if (data != null) {
+                                dataInicio = data.toString();
+                                dataInicioController.text = dataInicio
+                                    .split(' ')
+                                    .first;
+                                setState(() {});
+                              }
+                            },
                             controller: dataInicioController,
                             readOnly: true,
                             decoration: InputDecoration(
@@ -154,6 +183,20 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                         children: [
                           Text('Data Fim'),
                           TextField(
+                            onTap: () async {
+                              final data = await showDatePicker(
+                                context: context,
+                                firstDate: DateTime(2025),
+                                lastDate: DateTime(2050),
+                              );
+                              if (data != null) {
+                                dataFim = data.toString();
+                                dataFimController.text = dataInicio
+                                    .split(' ')
+                                    .first;
+                                setState(() {});
+                              }
+                            },
                             controller: dataFimController,
                             readOnly: true,
                             decoration: InputDecoration(
@@ -198,12 +241,15 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                       ),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
+                          dropdownColor: corClara,
                           isExpanded: true,
                           value: formato,
-                          items: List.generate(4, (index) {
+                          items: List.generate(listFormatos.length, (
+                            index,
+                          ) {
                             return DropdownMenuItem(
                               value: index,
-                              child: Text('Item'),
+                              child: Text(listFormatos[index]),
                             );
                           }),
                           onChanged: (newValue) {
@@ -221,59 +267,108 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                     Text('Professores'),
                     IconButton(
                       onPressed: () async {
-                        showDialog(
+                        await showDialog(
                           context: context,
                           builder: (_) {
-                            return AlertDialog(
-                              backgroundColor: corClara,
-                              title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Professores'),
-                                  IconButton(
-                                    onPressed: () {
-                                      Navigator.pop(context);
-                                    },
-                                    icon: Icon(Icons.close),
-                                  ),
-                                ],
-                              ),
-                              content: Column(
-                                spacing: 10,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      hintText: 'Busca',
-                                      suffixIcon: Icon(Icons.search),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: double.infinity,
-                                    height: 200,
-                                    child: SingleChildScrollView(
-                                      child: Column(
-                                        children: List.generate(5, (
-                                          index,
-                                        ) {
-                                          return ListTile(
-                                            title: Text('Prof'),
-                                            trailing: IconButton(
-                                              onPressed: () {},
-                                              icon: Icon(Icons.add),
-                                            ),
-                                          );
-                                        }),
+                            return StatefulBuilder(
+                              builder: (context, setState) {
+                                return AlertDialog(
+                                  backgroundColor: corClara,
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment
+                                            .spaceBetween,
+                                    children: [
+                                      Text('Professores'),
+                                      IconButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        icon: Icon(Icons.close),
                                       ),
-                                    ),
+                                    ],
                                   ),
-                                ],
-                              ),
+                                  content: Column(
+                                    spacing: 10,
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      TextField(
+                                        decoration: InputDecoration(
+                                          border:
+                                              OutlineInputBorder(),
+                                          hintText: 'Busca',
+                                          suffixIcon: Icon(
+                                            Icons.search,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: double.infinity,
+                                        height: 200,
+                                        child: SingleChildScrollView(
+                                          child: Column(
+                                            children: List.generate(listProfessores.length, (
+                                              index,
+                                            ) {
+                                              final prof =
+                                                  listProfessores[index];
+                                              return ListTile(
+                                                title: Text(
+                                                  prof['nome'],
+                                                ),
+                                                trailing: IconButton(
+                                                  onPressed:
+                                                      listProfsAdd
+                                                          .contains(
+                                                            prof,
+                                                          )
+                                                      ? () {
+                                                          setState(() {
+                                                            listProfsAdd
+                                                                .remove(
+                                                                  prof,
+                                                                );
+                                                          });
+                                                        }
+                                                      : () {
+                                                          if (listProfsAdd
+                                                                  .length >=
+                                                              5) {
+                                                            Fluttertoast.showToast(
+                                                              msg:
+                                                                  'Máximo de professores atingidos',
+                                                            );
+                                                          } else {
+                                                            setState(() {
+                                                              listProfsAdd
+                                                                  .add(
+                                                                    prof,
+                                                                  );
+                                                            });
+                                                          }
+                                                        },
+                                                  icon: Icon(
+                                                    listProfsAdd
+                                                            .contains(
+                                                              prof,
+                                                            )
+                                                        ? Icons.remove
+                                                        : Icons.add,
+                                                  ),
+                                                ),
+                                              );
+                                            }),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
                             );
                           },
                         );
+                        setState(() {});
                       },
                       icon: Icon(Icons.add),
                     ),
@@ -288,7 +383,10 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                   padding: EdgeInsets.all(5),
                   child: SingleChildScrollView(
                     child: Column(
-                      children: List.generate(4, (index) {
+                      children: List.generate(listProfsAdd.length, (
+                        index,
+                      ) {
+                        final prof = listProfsAdd[index];
                         return Padding(
                           padding: EdgeInsetsGeometry.only(bottom: 5),
                           child: Container(
@@ -300,7 +398,7 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                             ),
                             child: ListTile(
                               onTap: () {},
-                              title: Text('Prof'),
+                              title: Text(prof['nome']),
                             ),
                           ),
                         );
