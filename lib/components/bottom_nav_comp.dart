@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class BottomNavComp extends StatelessWidget {
   BottomNavComp({required this.contexto, super.key});
   BuildContext contexto;

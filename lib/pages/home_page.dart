@@ -3,6 +3,7 @@ import 'package:_08_modulo_d1_pr/global/colors.dart';
 import 'package:_08_modulo_d1_pr/global/variaveis.dart';
 import 'package:_08_modulo_d1_pr/services/infos_dao.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -12,6 +13,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  List<dynamic> listFiltrada = [];
+
   @override
   void initState() {
     super.initState();
@@ -19,11 +22,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   void iniciar() async {
+    eventInternet.receiveBroadcastStream().listen((value) {
+      valueConexao.value = value;
+      if (!valueConexao.value) {
+        Fluttertoast.showToast(msg: 'Sem conexão com a internet');
+      }
+    });
     await InfosDao().verificarLista();
+    listFiltrada = listCursos.toList();
     setState(() {});
   }
 
-  void modalInfos() async {
+  void modalInfos(dynamic curso) async {
     showDialog(
       context: context,
       builder: (_) {
@@ -94,6 +104,16 @@ class _HomePageState extends State<HomePage> {
           child: Column(
             spacing: 20,
             children: [
+              !valueConexao.value
+                  ? Container(
+                      decoration: BoxDecoration(color: Colors.red),
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        'Uso do aplicativo em modo off-line, os dados podem não estar totalmente atualizados, por conta do uso sem internet.',
+                        style: TextStyle(color: corClara),
+                      ),
+                    )
+                  : Container(),
               TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -111,36 +131,46 @@ class _HomePageState extends State<HomePage> {
                             SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
                             ),
-                        itemCount: 10,
+                        itemCount: listFiltrada.length,
                         itemBuilder: (context, index) {
+                          final curso = listFiltrada[index];
                           return Column(
                             mainAxisAlignment:
                                 MainAxisAlignment.center,
                             children: [
-                              Column(
-                                spacing: 20,
-                                children: [
-                                  Stack(
-                                    children: [
-                                      CircularProgressIndicator(
-                                        color: corRoxoClaro,
-                                        backgroundColor: corEscuro,
-                                        value: 0.5,
-                                        strokeWidth: 10,
-                                        strokeAlign: 2,
-                                      ),
-                                      Padding(
-                                        padding:
-                                            EdgeInsetsGeometry.only(
-                                              top: 9,
-                                              left: 5,
+                              GestureDetector(
+                                onLongPress: () {
+                                  modalInfos(curso);
+                                },
+                                child: Column(
+                                  spacing: 20,
+                                  children: [
+                                    Stack(
+                                      children: [
+                                        CircularProgressIndicator(
+                                          color: corRoxoClaro,
+                                          backgroundColor: corEscuro,
+                                          value: curso['porcentagem'],
+                                          strokeWidth: 10,
+                                          strokeAlign: 2,
+                                        ),
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsGeometry.only(
+                                                top: 9,
+                                              ),
+                                          child: Text(
+                                            '${(curso['porcentagem'] * 100)}%',
+                                            style: TextStyle(
+                                              fontSize: 12,
                                             ),
-                                        child: Text('10%'),
-                                      ),
-                                    ],
-                                  ),
-                                  Text('Item $index'),
-                                ],
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Text(curso['nomeBreve']),
+                                  ],
+                                ),
                               ),
                             ],
                           );
@@ -149,44 +179,50 @@ class _HomePageState extends State<HomePage> {
                     )
                   : Flexible(
                       child: ListView.builder(
-                        itemCount: 10,
+                        itemCount: listFiltrada.length,
                         itemBuilder: (context, index) {
+                          final curso = listFiltrada[index];
                           return Padding(
                             padding: EdgeInsetsGeometry.only(
                               bottom: 10,
                             ),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 1,
-                                  color: corEscuro,
+                            child: GestureDetector(
+                              onTap: () {
+                                modalInfos(curso);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    width: 1,
+                                    color: corEscuro,
+                                  ),
                                 ),
-                              ),
-                              child: ListTile(
-                                leading: Stack(
-                                  children: [
-                                    CircularProgressIndicator(
-                                      color: corRoxoClaro,
-                                      backgroundColor: corEscuro,
-                                      value: 0.3,
-                                      strokeWidth: 5,
-                                    ),
-                                    Padding(
-                                      padding:
-                                          EdgeInsetsGeometry.only(
-                                            top: 11,
-                                            left: 8,
+                                child: ListTile(
+                                  leading: Stack(
+                                    children: [
+                                      CircularProgressIndicator(
+                                        color: corRoxoClaro,
+                                        backgroundColor: corEscuro,
+                                        value: curso['porcentagem'],
+                                        strokeWidth: 5,
+                                      ),
+                                      Padding(
+                                        padding:
+                                            EdgeInsetsGeometry.only(
+                                              top: 11,
+                                              left: 4,
+                                            ),
+                                        child: Text(
+                                          '${(curso['porcentagem'] * 100)}%',
+                                          style: TextStyle(
+                                            fontSize: 10,
                                           ),
-                                      child: Text(
-                                        '20%',
-                                        style: TextStyle(
-                                          fontSize: 10,
                                         ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
+                                  title: Text(curso['nomeBreve']),
                                 ),
-                                title: Text('Item $index'),
                               ),
                             ),
                           );
