@@ -1,0 +1,1 @@
+bool listagemGrid = false;
