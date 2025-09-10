@@ -8,3 +8,4 @@ List<dynamic> listCursos = [],
 String caminhoCanal = 'com.example_08_modulo_d1_pr';
 EventChannel eventInternet = EventChannel('$caminhoCanal/internet');
 ValueNotifier<bool> valueConexao = ValueNotifier(false);
+MethodChannel methodChannel = MethodChannel('$caminhoCanal/main');
