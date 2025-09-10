@@ -368,5 +368,12 @@ void main() {
       'Botão Professores clicado no NavigationBar',
     );
     await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.note_add));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Flutuante clicado');
+    await tester.pump(Duration(seconds: 1));
   });
 }

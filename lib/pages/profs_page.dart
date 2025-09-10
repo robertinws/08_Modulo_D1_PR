@@ -87,7 +87,9 @@ class _ProfsPageState extends State<ProfsPage> {
         ),
       ),
       floatingActionButton: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('/cadastroProf');
+        },
         icon: Icon(Icons.note_add),
       ),
       bottomNavigationBar: BottomNavComp(contexto: context),
