@@ -62,11 +62,19 @@ class _ProfsPageState extends State<ProfsPage> {
                           ),
                         ),
                         child: ListTile(
+                          onLongPress: () {
+                            setState(() {
+                              profSelecionado = index;
+                            });
+                          },
                           title: Text(prof['nome']),
                           subtitle: Text(prof['descricao']),
                           trailing: profSelecionado == index
                               ? IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    listProfessores.remove(prof);
+                                    setState(() {});
+                                  },
                                   icon: Icon(Icons.delete),
                                 )
                               : IconButton(
