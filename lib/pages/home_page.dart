@@ -1,5 +1,7 @@
+import 'package:_08_modulo_d1_pr/components/bottom_nav_comp.dart';
 import 'package:_08_modulo_d1_pr/global/colors.dart';
 import 'package:_08_modulo_d1_pr/global/variaveis.dart';
+import 'package:_08_modulo_d1_pr/services/infos_dao.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -10,6 +12,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    iniciar();
+  }
+
+  void iniciar() async {
+    await InfosDao().verificarLista();
+    setState(() {});
+  }
+
   void modalInfos() async {
     showDialog(
       context: context,
@@ -188,37 +201,7 @@ class _HomePageState extends State<HomePage> {
         onPressed: () {},
         icon: Icon(Icons.note_add, size: 30),
       ),
-      bottomNavigationBar: SafeArea(
-        child: Padding(
-          padding: EdgeInsetsGeometry.all(10),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              InkWell(
-                child: Image.asset(
-                  height: 50,
-                  'assets/images/cursos.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              InkWell(
-                child: Image.asset(
-                  height: 50,
-                  'assets/images/profs.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-              InkWell(
-                child: Image.asset(
-                  height: 50,
-                  'assets/images/relatorios.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavComp(contexto: context),
     );
   }
 }
