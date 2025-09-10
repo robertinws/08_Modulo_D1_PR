@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:_08_modulo_d1_pr/components/bottom_nav_comp.dart';
 import 'package:_08_modulo_d1_pr/global/colors.dart';
 import 'package:_08_modulo_d1_pr/global/variaveis.dart';
 import 'package:_08_modulo_d1_pr/services/infos_dao.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,6 +34,12 @@ class _HomePageState extends State<HomePage> {
     });
     await InfosDao().verificarLista();
     listFiltrada = listCursos.toList();
+    listCategorias = jsonDecode(
+      await rootBundle.loadString('assets/jsons/dados.json'),
+    )['categorias'];
+    listProfessores = jsonDecode(
+      await rootBundle.loadString('assets/jsons/dados.json'),
+    )['professores_id'];
     setState(() {});
   }
 

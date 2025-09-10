@@ -10,6 +10,16 @@ class CadastroCursoPage extends StatefulWidget {
 
 class _CadastroCursoPageState extends State<CadastroCursoPage> {
   bool visivel = false;
+  TextEditingController nomeCompletoController =
+          TextEditingController(),
+      nomeBreveController = TextEditingController(),
+      dataInicioController = TextEditingController(),
+      dataFimController = TextEditingController(),
+      sumarioController = TextEditingController();
+  String dataInicio = '', dataFim = '';
+  int? categoria, formato = 0;
+
+  void salvarCurso() async {}
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +51,8 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                   children: [
                     Text('Nome Completo'),
                     TextField(
+                      maxLength: 50,
+                      controller: nomeCompletoController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                       ),
@@ -52,6 +64,8 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                   children: [
                     Text('Nome Breve'),
                     TextField(
+                      maxLength: 15,
+                      controller: nomeBreveController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                       ),
@@ -80,14 +94,19 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                             child: DropdownButtonHideUnderline(
                               child: DropdownButton(
                                 isExpanded: true,
-                                value: 0,
+                                value: categoria,
+                                hint: Text('Selecione uma categoria'),
                                 items: List.generate(4, (index) {
                                   return DropdownMenuItem(
                                     value: index,
                                     child: Text('Item'),
                                   );
                                 }),
-                                onChanged: (newValue) {},
+                                onChanged: (newValue) {
+                                  setState(() {
+                                    categoria = newValue;
+                                  });
+                                },
                               ),
                             ),
                           ),
@@ -119,6 +138,7 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                         children: [
                           Text('Data Início'),
                           TextField(
+                            controller: dataInicioController,
                             readOnly: true,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
@@ -134,6 +154,7 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                         children: [
                           Text('Data Fim'),
                           TextField(
+                            controller: dataFimController,
                             readOnly: true,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
@@ -150,6 +171,8 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                   children: [
                     Text('Sumário do Curso'),
                     TextField(
+                      maxLength: 200,
+                      controller: sumarioController,
                       maxLines: 3,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -176,14 +199,18 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton(
                           isExpanded: true,
-                          value: 0,
+                          value: formato,
                           items: List.generate(4, (index) {
                             return DropdownMenuItem(
                               value: index,
                               child: Text('Item'),
                             );
                           }),
-                          onChanged: (newValue) {},
+                          onChanged: (newValue) {
+                            setState(() {
+                              formato = newValue;
+                            });
+                          },
                         ),
                       ),
                     ),
@@ -285,7 +312,7 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: salvarCurso,
                       style: ElevatedButton.styleFrom(
                         backgroundColor: corRoxoMedio,
                         foregroundColor: corClara,
