@@ -151,7 +151,7 @@ class _CadastroProfPageState extends State<CadastroProfPage> {
                                         });
                                       }
                                     },
-                                    child: Container(),
+                                    child: Container(color: corClara),
                                   ),
                           ),
                         ],
