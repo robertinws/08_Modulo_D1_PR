@@ -1,5 +1,6 @@
 import 'package:_08_modulo_d1_pr/global/colors.dart';
 import 'package:_08_modulo_d1_pr/global/variaveis.dart';
+import 'package:_08_modulo_d1_pr/services/infos_dao.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -28,7 +29,71 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
   ];
   List<dynamic> listProfsAdd = [];
 
-  void salvarCurso() async {}
+  void salvarCurso() async {
+    if (nomeCompletoController.text.trim().isEmpty) {
+      Fluttertoast.showToast(msg: 'Nome completo é obrigatório');
+      return;
+    } else {
+      if (nomeCompletoController.text.trim().length < 10 ||
+          nomeCompletoController.text.split(' ').length < 2) {
+        Fluttertoast.showToast(
+          msg:
+              'Mínimo de 10 caracteres e um sobrenome para o Nome Completo',
+        );
+        return;
+      }
+    }
+    if (nomeBreveController.text.trim().isEmpty) {
+      Fluttertoast.showToast(msg: 'Nome breve é obrigatório');
+      return;
+    }
+    if (categoria == null) {
+      Fluttertoast.showToast(msg: 'Categoria é obrigatório');
+      return;
+    }
+    if (dataInicio.isEmpty) {
+      Fluttertoast.showToast(msg: 'Data início é obrigatória');
+      return;
+    }
+    if (DateTime.parse(
+      dataInicio.toString(),
+    ).isBefore(DateTime.now())) {
+      Fluttertoast.showToast(
+        msg: 'Data início não pode ser anterior ao dia atual',
+      );
+      return;
+    }
+    if (DateTime.parse(
+      dataFim.toString(),
+    ).isBefore(DateTime.parse(dataInicio))) {
+      Fluttertoast.showToast(
+        msg: 'Data fim não pode ser anterior a data início',
+      );
+      return;
+    }
+    if (listProfsAdd.isEmpty) {
+      Fluttertoast.showToast(msg: 'Selecione ao menos um professor');
+      return;
+    }
+    final curso = {
+      "id": listCursos.length + 1,
+      "nomeCompleto": nomeCompletoController.text.trim(),
+      "nomeBreve": nomeBreveController.text.trim(),
+      "categoria_id": listCategorias[categoria ?? 0]['id'],
+      "visivel": visivel,
+      "dataInicio": dataInicioController.text,
+      "dataFim": dataFimController.text,
+      "descricao": sumarioController.text.trim(),
+      "formato": listFormatos[formato ?? 0],
+      "professores_id": listProfsAdd.toString(),
+      "porcentagem": 0.0,
+    };
+    await InfosDao().addListaCurso(curso);
+    Fluttertoast.showToast(msg: 'Curso salvo com sucesso!');
+    Navigator.of(
+      context,
+    ).pushNamedAndRemoveUntil('/', (context) => false);
+  }
 
   @override
   Widget build(BuildContext context) {

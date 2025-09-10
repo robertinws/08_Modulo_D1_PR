@@ -22,4 +22,10 @@ class InfosDao {
       await file.writeAsString(jsonEncode(listCursos));
     }
   }
+
+  Future<void> addListaCurso(dynamic curso) async {
+    final file = await getFile();
+    listCursos.add(curso);
+    await file.writeAsString(jsonEncode(listCursos));
+  }
 }
