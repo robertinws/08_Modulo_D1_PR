@@ -5,6 +5,7 @@ import 'package:_08_modulo_d1_pr/global/colors.dart';
 import 'package:_08_modulo_d1_pr/global/variaveis.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_masked_text2/flutter_masked_text2.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class CadastroProfPage extends StatefulWidget {
   const CadastroProfPage({super.key});
@@ -17,7 +18,28 @@ class _CadastroProfPageState extends State<CadastroProfPage> {
   MaskedTextController telefoneController = MaskedTextController(
     mask: '(00) 00000-0000',
   );
+  TextEditingController nomeController = TextEditingController(),
+      emailController = TextEditingController();
   Uint8List? bytesImage;
+
+  void salvar() async {
+    if (nomeController.text.trim().isEmpty) {
+      Fluttertoast.showToast(msg: 'Nome é obrigatório');
+      return;
+    }
+    if (!emailController.text.contains('@')) {
+      Fluttertoast.showToast(msg: 'Formato inválido de E-mail');
+      return;
+    }
+    listProfessores.add({
+      'nome': nomeController.text,
+      'email': emailController.text,
+      'descricao': 'Sem descrição',
+    });
+    setState(() {});
+    Fluttertoast.showToast(msg: 'Professor salvo com sucesso!');
+    Navigator.pop(context);
+  }
 
   @override
   void initState() {
@@ -69,6 +91,7 @@ class _CadastroProfPageState extends State<CadastroProfPage> {
                   children: [
                     Text('Nome'),
                     TextField(
+                      controller: nomeController,
                       maxLength: 60,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -81,6 +104,7 @@ class _CadastroProfPageState extends State<CadastroProfPage> {
                   children: [
                     Text('E-mail'),
                     TextField(
+                      controller: emailController,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(),
                       ),
@@ -171,7 +195,7 @@ class _CadastroProfPageState extends State<CadastroProfPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               ElevatedButton(
-                onPressed: () {},
+                onPressed: salvar,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: corRoxoMedio,
                   foregroundColor: corClara,

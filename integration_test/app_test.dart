@@ -375,5 +375,65 @@ void main() {
 
     tester.printToConsole('Botão Flutuante clicado');
     await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.enterText(
+      find.byType(TextField).first,
+      'Robson Denner',
+    );
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Nome inserido');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.enterText(
+      find.byType(TextField).first,
+      'robson.denneremailcom',
+    );
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('E-mail inserido');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.enterText(
+      find.byType(TextField).first,
+      'robson.denner@email.com',
+    );
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('E-mail inserido');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byKey(Key('btnRelatorios')));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole(
+      'Botão relatórios do NavigationBar clicado',
+    );
+    await tester.pump(Duration(seconds: 1));
   });
 }
