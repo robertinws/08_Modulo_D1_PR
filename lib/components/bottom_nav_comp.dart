@@ -20,6 +20,7 @@ class BottomNavComp extends StatelessWidget {
                       Navigator.of(context).pushReplacementNamed('/');
                     },
               child: Image.asset(
+                key: Key('btnCursos'),
                 height: 50,
                 'assets/images/cursos.png',
                 fit: BoxFit.cover,
@@ -35,6 +36,7 @@ class BottomNavComp extends StatelessWidget {
                       ).pushReplacementNamed('/profs');
                     },
               child: Image.asset(
+                key: Key('btnProfs'),
                 height: 50,
                 'assets/images/profs.png',
                 fit: BoxFit.cover,
@@ -51,6 +53,8 @@ class BottomNavComp extends StatelessWidget {
                       ).pushReplacementNamed('/relatorios');
                     },
               child: Image.asset(
+                key: Key('btnRelatorios'),
+
                 height: 50,
                 'assets/images/relatorios.png',
                 fit: BoxFit.cover,

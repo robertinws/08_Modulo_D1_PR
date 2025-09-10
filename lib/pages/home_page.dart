@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   List<dynamic> listFiltrada = [];
+  TextEditingController pesquisaController = TextEditingController();
 
   @override
   void initState() {
@@ -31,6 +32,35 @@ class _HomePageState extends State<HomePage> {
     await InfosDao().verificarLista();
     listFiltrada = listCursos.toList();
     setState(() {});
+  }
+
+  void pesquisar(String pesquisa) async {
+    if (pesquisa.isEmpty) {
+      setState(() {
+        listFiltrada = listCursos.toList();
+      });
+    } else {
+      if (pesquisa.contains('@') ||
+          pesquisa.contains('#') ||
+          pesquisa.contains(r'$')) {
+        Fluttertoast.showToast(
+          msg: 'Caracteres inválidos não são aceitos',
+        );
+      } else {
+        listFiltrada = listCursos
+            .where(
+              (item) => item['nomeCompleto'].toString().contains(
+                pesquisa.toString(),
+              ),
+            )
+            .toList();
+        if (listFiltrada.isEmpty) {
+          Fluttertoast.showToast(msg: 'Nenhum curso encontrado');
+        } else {
+          setState(() {});
+        }
+      }
+    }
   }
 
   void modalInfos(dynamic curso) async {
@@ -53,11 +83,13 @@ class _HomePageState extends State<HomePage> {
           ),
           content: SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
-              spacing: 15,
+              spacing: 20,
               children: [
-                Text('Curso:\nwojdowj'),
-                Text('Descrição:\nwojdowj'),
+                Text('Curso:\n${curso['nomeCompleto']}'),
+                Text('Nome Breve:\n${curso['nomeBreve']}'),
+                Text('Descrição:\n${curso['descricao']}'),
               ],
             ),
           ),
@@ -115,11 +147,21 @@ class _HomePageState extends State<HomePage> {
                     )
                   : Container(),
               TextField(
+                controller: pesquisaController,
+                onChanged: (value) {
+                  if (value.isEmpty) {
+                    setState(() {
+                      listFiltrada = listCursos.toList();
+                    });
+                  }
+                },
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   hintText: 'Busca',
                   suffixIcon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      pesquisar(pesquisaController.text.trim());
+                    },
                     icon: Icon(Icons.search),
                   ),
                 ),
