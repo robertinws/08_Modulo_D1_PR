@@ -369,7 +369,7 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                                       ),
                                       SizedBox(
                                         width: double.infinity,
-                                        height: 200,
+                                        height: 350,
                                         child: SingleChildScrollView(
                                           child: Column(
                                             children: List.generate(listProfessores.length, (
@@ -382,6 +382,9 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                                                   prof['nome'],
                                                 ),
                                                 trailing: IconButton(
+                                                  key: Key(
+                                                    'key$index',
+                                                  ),
                                                   onPressed:
                                                       listProfsAdd
                                                           .contains(
@@ -471,34 +474,38 @@ class _CadastroCursoPageState extends State<CadastroCursoPage> {
                     ),
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    ElevatedButton(
-                      onPressed: salvarCurso,
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: corRoxoMedio,
-                        foregroundColor: corClara,
-                      ),
-                      child: Text('Salvar'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                          '/',
-                          (context) => false,
-                        );
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: corRoxoMedio,
-                        foregroundColor: corClara,
-                      ),
-                      child: Text('Cancelar'),
-                    ),
-                  ],
-                ),
               ],
             ),
+          ),
+        ),
+      ),
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsetsGeometry.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              ElevatedButton(
+                onPressed: salvarCurso,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: corRoxoMedio,
+                  foregroundColor: corClara,
+                ),
+                child: Text('Salvar'),
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(
+                    context,
+                  ).pushNamedAndRemoveUntil('/', (context) => false);
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: corRoxoMedio,
+                  foregroundColor: corClara,
+                ),
+                child: Text('Cancelar'),
+              ),
+            ],
           ),
         ),
       ),

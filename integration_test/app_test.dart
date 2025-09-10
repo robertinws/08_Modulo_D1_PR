@@ -128,5 +128,245 @@ void main() {
 
     tester.printToConsole('Botão flutuante clicado');
     await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.enterText(
+      find.byType(TextField).first,
+      'Desenvolvimento de Aplicativos Móveis',
+    );
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Nome Completo inserido');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.enterText(find.byType(TextField).at(1), 'Mobile');
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Nome Breve inserido');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byType(DropdownButtonHideUnderline).first);
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Dropdown clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Qualidade de Software'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Categoria selecionada clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.date_range).first);
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Campo Data Início clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.edit_outlined));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão editar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    tester.testTextInput.enterText('02/15/2025');
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Data Início inserida');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('OK'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão OK clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.date_range).first);
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Campo Data Início clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.edit_outlined));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão editar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    tester.testTextInput.enterText('11/12/2025');
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Data Início inserida');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('OK'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão OK clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.date_range).last);
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Campo Data Fim clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.edit_outlined));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão editar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    tester.testTextInput.enterText('10/12/2025');
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Data Fim inserida');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('OK'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão OK clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.date_range).last);
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Campo Data Fim clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.edit_outlined));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão editar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    tester.testTextInput.enterText('12/12/2025');
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Data Fim inserida');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('OK'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão OK clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byIcon(Icons.add));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Adicionar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    for (int i = 0; i < 6; i++) {
+      await tester.tap(find.byKey(Key('key$i')));
+      await tester.pump(Duration(seconds: 1));
+      await tester.pump(Duration(seconds: 1));
+
+      tester.printToConsole('Botão Adicionar Professor clicado');
+      await tester.pump(Duration(seconds: 1));
+    }
+
+    for (int i = 0; i < 2; i++) {
+      await tester.tap(find.byKey(Key('key$i')));
+      await tester.pump(Duration(seconds: 1));
+      await tester.pump(Duration(seconds: 1));
+
+      tester.printToConsole('Botão Remover Professor clicado');
+      await tester.pump(Duration(seconds: 1));
+    }
+
+    await tester.tap(find.byIcon(Icons.close));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Close clicado para fechar o modal');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.text('Salvar'));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole('Botão Salvar clicado');
+    await tester.pump(Duration(seconds: 1));
+
+    await tester.tap(find.byKey(Key('btnProfs')));
+    await tester.pump(Duration(seconds: 1));
+    await tester.pump(Duration(seconds: 1));
+
+    tester.printToConsole(
+      'Botão Professores clicado no NavigationBar',
+    );
+    await tester.pump(Duration(seconds: 1));
   });
 }
