@@ -102,6 +102,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: corClara,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         title: Text('Dashboard'),
@@ -277,7 +278,9 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       floatingActionButton: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed('/cadastroCurso');
+        },
         icon: Icon(Icons.note_add, size: 30),
       ),
       bottomNavigationBar: BottomNavComp(contexto: context),
