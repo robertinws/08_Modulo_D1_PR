@@ -9,7 +9,6 @@ class AppController extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
-
       routes: {'/': (context) => HomePage()},
     );
   }
